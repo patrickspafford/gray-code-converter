@@ -66,6 +66,9 @@ input {
     height: 3rem;
     font-size: 1.25rem;
     text-align: center;
+    outline: none;
+    border-radius: 0.75rem;
+    border: 1px solid black;
 }
 </style>
 

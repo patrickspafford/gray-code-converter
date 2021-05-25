@@ -5,7 +5,7 @@
       v-on:decimalChange="handleBinaryDecimalChange"
       v-bind:binaryValue="binary"
       v-bind:decimalValue="binaryDecimal"
-      showHeader
+      showHeader="true"
       label="Value"
     />
     <InputGroup
@@ -23,7 +23,12 @@
 <script>
 import Header from './components/Header.vue'
 import InputGroup from './components/InputGroup.vue'
-import { toBinary } from './utils'
+import {
+  toBinary,
+  binaryRegex,
+  calculateDecimalFromGray,
+  calculateGrayCode,
+  } from './utils'
 
 export default {
   name: 'App',
@@ -41,29 +46,55 @@ export default {
   },
   methods: {
     handleBinaryDecimalChange({ target: { value }}) {
+      if (value === '') {
+        this.clear()
+        return
+      }
       const temp = Number(value)
       this.binaryDecimal = temp
       this.binary = toBinary(temp)
-      this.grayCodeDecimal = Number(temp ^ (temp >> 1))
-      this.grayCode = toBinary(temp ^ (temp >> 1))
+      const grayCode = calculateGrayCode(temp)
+      this.grayCodeDecimal = grayCode
+      this.grayCode = toBinary(grayCode)
     },
     handleBinaryChange({ target: { value }}) {
+      if (!value.match(binaryRegex)) {
+        this.clear()
+        return
+      }
+      const decimalValue = parseInt(value, 2)
       this.binary = Number(value)
+      this.binaryDecimal = decimalValue
+      const grayCodeRaw = Number(decimalValue ^ (decimalValue >> 1))
+      this.grayCodeDecimal = grayCodeRaw
+      this.grayCode = toBinary(grayCodeRaw)
     },
     handleGrayCodeDecimalChange({ target: { value }}) {
-      let temp = Number(value)
-      let accum = 0
-      while (temp) {
-        accum ^= temp
-        temp >>= 1
+      if (value === '') {
+        this.clear()
+        return
       }
-      this.binaryDecimal = accum
-      this.binary = toBinary(accum)
+      const decimal = calculateDecimalFromGray(value)
+      this.binaryDecimal = decimal
+      this.binary = toBinary(decimal)
       this.grayCodeDecimal = Number(value)
       this.grayCode = toBinary(value)
     },
     handleGrayCodeBinaryChange({ target : { value }}) {
+      if (!value.match(binaryRegex)) {
+        this.clear()
+        return
+      }
       this.grayCode = Number(value)
+      let decimalGrayCodeValue = parseInt(value, 2)
+      this.grayCodeDecimal = decimalGrayCodeValue
+      let accum = 0
+      while (decimalGrayCodeValue) {
+        accum ^= decimalGrayCodeValue
+        decimalGrayCodeValue >>= 1
+      }
+      this.binaryDecimal = accum
+      this.binary = toBinary(accum)
     },
     clear() {
       this.binary = 0
@@ -82,5 +113,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+body {
+  margin: 0;
 }
 </style>
