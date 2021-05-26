@@ -117,4 +117,14 @@ export default {
 body {
   margin: 0;
 }
+.button {
+  background-color: #ccc;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.button:hover {
+  opacity: 0.75;
+}
 </style>

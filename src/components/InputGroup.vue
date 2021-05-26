@@ -67,8 +67,9 @@ input {
     font-size: 1.25rem;
     text-align: center;
     outline: none;
+    box-shadow: 0 10px 15px 5px rgba(0, 0, 0, 0.15);
     border-radius: 0.75rem;
-    border: 1px solid black;
+    border: none;
 }
 </style>
 

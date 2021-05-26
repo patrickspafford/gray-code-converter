@@ -20,8 +20,8 @@ header {
 }
 nav {
     background-color: #ccc;
-    padding: 4rem 0;
-    font-size: 2rem;
+    padding: 3rem 0;
+    font-size: 1.5rem;
     font-weight: 700;
 }
 </style>
