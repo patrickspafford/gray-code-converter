@@ -18,11 +18,13 @@
     <button class="button" @click="clear()">
       Clear
     </button>
+  <Footer />
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import InputGroup from './components/InputGroup.vue'
+import Footer from './components/Footer.vue'
 import {
   toBinary,
   binaryRegex,
@@ -35,6 +37,7 @@ export default {
   components: {
     Header,
     InputGroup,
+    Footer,
   },
   data() {
     return {

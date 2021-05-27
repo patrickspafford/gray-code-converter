@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "@vueform/toggle": "^1.1.0",
+    "@vueuse/core": "^4.11.1",
     "core-js": "^3.6.5",
+    "v-clipboard": "^2.2.3",
     "vue": "^3.0.0"
   },
   "devDependencies": {
